@@ -68,9 +68,42 @@ def logout_view(request):
     return redirect('reg/')
 
 
-# Илюха сюда
+@login_required
+def main(request):
+    posts = Post.objects.all()
+    user = request.user
+    context = {"posts": posts, "user": user}
+    return render(request, 'post.html', context)
 
-# Саня сюда
+
+@login_required
+def like(request, pk):
+    post = Post.objects.get(pk=pk)
+    user = str(request.user)
+
+    if post.owner == user:
+
+        return redirect("/")
+
+    post.likes += 1
+    print(post.likes)
+    post.save()
+    return redirect("/")
+
+@login_required
+def profile(request, pk):
+    profile_data = Profile.objects.get(id=pk)
+    user = request.user
+    context = {"profile": profile_data, "user": user}
+    return render(request, 'profile.html', context)
+
+
+@login_required
+def update_post(request, pk):
+    post = Post.objects.get(id=pk)
+    form = UpdateForm(instance=post)
+
+    return render(request, 'update.html', {'form': form, 'post': post})
 
 
 @login_required
