@@ -70,7 +70,6 @@ def logout_view(request):
 
 # Илюха сюда
 
-
 # Саня сюда
 
 
