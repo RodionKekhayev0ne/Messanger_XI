@@ -67,7 +67,7 @@ def logout_view(request):
     logout(request)
     return redirect('reg/')
 
-
+#
 @login_required
 def main(request):
     posts = Post.objects.all()
